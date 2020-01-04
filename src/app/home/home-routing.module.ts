@@ -6,7 +6,7 @@ import { NodeComponent } from './node/node.component';
 const routes: Routes = [
   {
     path: '',
-    component: NodeComponent
+    component: NodeContainerComponent
   }
 ];
 

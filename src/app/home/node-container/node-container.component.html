@@ -1,3 +1,18 @@
-<p>
-  node-container works!
-</p>
+
+<button   (click)="createNode()">
+  Add State
+</button>
+
+<!-- <nodes-container #nodeContainer [nodes]="nodes" [connections]="connections"></nodes-container> -->
+
+
+
+<div class="container">
+	<ng-template #nodes></ng-template>
+</div>
+
+
+
+<div >
+  <button class="align-middle" (click)="saveNodeJson()">Save JSON</button>
+</div>
