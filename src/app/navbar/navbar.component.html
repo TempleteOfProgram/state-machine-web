@@ -1,0 +1,39 @@
+<mat-drawer-container class="container" autosize >
+  <!-- Will be triggered by (click) = "drawer.toggle()" -->
+   
+  <div class="sidenav-content">
+      <mat-toolbar color="primary">
+          <mat-toolbar-row>
+              <!-- 
+                drawer.toggle(): will call #drawer and will bring the sidenav into view
+              -->
+              <button mat-icon-button (click) = "drawer.toggle()">
+                      <mat-icon>menu</mat-icon>
+              </button>
+              <button mat-button routerLink="">State-Machine</button>
+       
+              <span class="spacer"></span>
+              
+              <mat-menu #menu="matMenu" >
+                
+              </mat-menu>
+
+          </mat-toolbar-row>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+  </div>
+  
+  <mat-drawer #drawer class="sidenav">
+          <button mat-menu-item routerLink="">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+          </button> 
+
+          <button mat-menu-item (click)="GoToHomePage()">
+            <mat-icon>group</mat-icon>
+            <span>About</span>
+          </button> 
+
+  </mat-drawer>
+ 
+</mat-drawer-container>
