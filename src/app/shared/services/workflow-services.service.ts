@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class WorkflowServicesService {
 
-  readonly rootUrl = environment.serverUrl;
+  // readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
 
 

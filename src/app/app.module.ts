@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
 
-// Declares our routing
-import { AppRoutingModule } from './app-routing.module';
+// Declaring Compoments and services
 import { AppComponent } from './app.component';
-import {HttpClientModule} from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './navbar/navbar.component';
+import { WorkflowServicesService } from './shared/services/workflow-services.service';
+
 
 // These are the materials that will make our site adaptable
 import { MatButtonModule } from '@angular/material/button';
@@ -13,24 +15,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
-
-
-import { NavbarComponent } from './navbar/navbar.component';
-import { WorkflowServicesService } from './services/workflow-services.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
 
     // HTTP requests
     HttpClientModule,
-
-    BrowserAnimationsModule,
 
     // Material
     MatButtonModule,
@@ -38,6 +37,7 @@ import { WorkflowServicesService } from './services/workflow-services.service';
     MatSidenavModule,
     MatToolbarModule,
     MatMenuModule,
+    FormsModule,
 
 
     // Our Routes will be here to make code cleaner
@@ -45,7 +45,7 @@ import { WorkflowServicesService } from './services/workflow-services.service';
 
   ],
   providers: [
-    WorkflowServicesService
+    WorkflowServicesService,
 
   ],
   bootstrap: [AppComponent]
