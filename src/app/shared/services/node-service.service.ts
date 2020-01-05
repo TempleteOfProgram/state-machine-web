@@ -26,6 +26,13 @@ export class NodeService {
         this.rootViewContainer.insert(component.hostView);
         // console.log("in NodeService.." , component.instance );
     }
+    addConnection(connection: any) {
+      this.jsPlumbInstance.connect({ uuids: connection.uuids });
+    }
+
+    public clear() {
+      this.rootViewContainer.clear();
+    }
 
 
 }

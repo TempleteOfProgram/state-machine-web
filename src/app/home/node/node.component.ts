@@ -52,27 +52,25 @@ export class NodeComponent implements AfterViewInit {
 
 
     const EndpointFrom = {
-      endpoint: ['Dot', { radius: 7 }],
-      paintStyle: { fill: '#99cb3a' },
+      endpoint: ['Dot', {radius: 8}],
+      paintStyle: { fill: '#008000' },
       isSource: true,
       scope: 'jsPlumb_DefaultScope',
-      connectorStyle: { stroke: '#000000', strokeWidth: 3 },
-      connector: ['Straight', { curviness: 1 }],
+      connectorStyle: { stroke: '#2F4F4F', strokeWidth: 3 },
+      connector: ['Flowchart'],
       maxConnections: 10,
       isTarget: false,
-      connectorOverlays: [['Arrow', { location: 1 }]],
-      dropOptions: exampleDropOptions
+      connectorOverlays: [['Arrow', { location: 1 }]]
     };
 
 
     const EndpointTO = {
-      endpoint: ['Dot', { radius: 4 }],
-      paintStyle: { fill: '#ffcb3a' },
+      endpoint: ['Rectangle', {width: 10, height: 10}],
+      paintStyle: { fill: '#FF0000' },
       isSource: false,
       scope: 'jsPlumb_DefaultScope',
       maxConnections: 10,
-      isTarget: true,
-      dropOptions: exampleDropOptions
+      isTarget: true
     };
 
 

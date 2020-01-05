@@ -13,8 +13,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  GoToHomePage() {
-    this.router.navigate(['']);
+  DisplayWorkflow() {
+    // send to graph page
+    this.router.navigate(['/graph']);
   }
 
 }
