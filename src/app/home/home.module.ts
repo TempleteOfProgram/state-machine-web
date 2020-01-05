@@ -7,6 +7,8 @@ import { NodeComponent } from './node/node.component';
 import { FormsModule } from '@angular/forms';
 import { NodeService } from '../shared/services/node-service.service';
 import { MainComponent } from './main/main.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [NodeContainerComponent, NodeComponent, MainComponent],
@@ -14,6 +16,8 @@ import { MainComponent } from './main/main.component';
     CommonModule,
     HomeRoutingModule,
     FormsModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   entryComponents: [NodeComponent],
   // bootstrap: [MainComponent],

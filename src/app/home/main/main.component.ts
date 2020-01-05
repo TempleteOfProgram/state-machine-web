@@ -24,4 +24,9 @@ export class MainComponent {
         this.connections = data.connections;
     }
 
+    menu() {
+
+      console.log('from homeComponent manu');
+    }
+
 }
