@@ -1,11 +1,9 @@
 import { NodeService } from './../../shared/services/node-service.service';
 import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/core';
 
-
 @Component({
   selector: 'node-container',
-  templateUrl: './node-container.component.html',
-  styleUrls: ['./node-container.component.css']
+  templateUrl: './node-container.component.html'
 })
 
 export class NodeContainerComponent implements OnInit {
@@ -14,21 +12,22 @@ export class NodeContainerComponent implements OnInit {
   @Input() connections = [];
   @ViewChild('nodes', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
 
-  constructor(private pClinet: NodeService) { }
+  constructor(private pClinet: NodeService,) { }
 
   ngOnInit() {
     this.pClinet.setRootViewContainerRef(this.viewContainerRef);
   }
 
-  createNode() {
-    let temp = String.fromCharCode(Math.floor(Math.random() * 100));
-    let node = { id: temp};
-    this.pClinet.createNode(node);
+  createNewNode( ) {
+    // if (node.id)
+    const temp = String.fromCharCode(Math.floor(Math.random() * 100));
+    const nodef = { id: temp, top: 165, left: 100};
+    this.pClinet.createNode(nodef);
   }
   saveNodeJson() {
     const container = this.viewContainerRef.element.nativeElement.parentNode;
     // tslint:disable-next-line: typedef
-    const nodes = Array.from(container.querySelectorAll('.node')).map((node: any) => {
+    const nodes = Array.from(container.querySelectorAll('.node')).map((node:HTMLDivElement) => {
       return {
         id: node.id,
         top: node.offsetTop,

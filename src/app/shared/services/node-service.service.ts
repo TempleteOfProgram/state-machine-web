@@ -1,5 +1,6 @@
 import { jsPlumb } from 'jsplumb';
-import { NodeComponent, Node } from './../../home/node/node.component';
+import { NodeModel } from './../models/NodeModel';
+import { NodeComponent} from './../../home/node/node.component';
 import {ComponentFactoryResolver, Injectable} from '@angular/core';
 
 
@@ -17,7 +18,7 @@ export class NodeService {
             this.rootViewContainer = viewContainerRef;
     }
 
-    public createNode(node: Node) {
+    public createNode(node: NodeModel) {
         const factory = this.factoryResolver.resolveComponentFactory(NodeComponent);
         const component = factory.create(this.rootViewContainer.parentInjector);
         ( component.instance as any).node = node;

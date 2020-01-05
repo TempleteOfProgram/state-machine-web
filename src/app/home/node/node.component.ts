@@ -1,15 +1,11 @@
+import { NodeModel } from './../../shared/models/NodeModel';
 import { Component, AfterViewInit, Input } from '@angular/core';
-
-export interface Node {
-  id: any;
-}
 
 @Component({
   // tslint:disable-next-line: component-selector
   selector: 'node',
   template: `
-  <div class="node" id="{{node.id}}">
-  <!-- <div class="node"> -->
+  <div class="node" id="{{node.id}}"  [style.top.px]="node.top" [style.left.px]="node.left">
       <button
         type="button"
         class="close"
@@ -17,7 +13,7 @@ export interface Node {
         (click)="removeNode(node)"> <span aria-hidden="true">×</span>
       </button>
       <br>Status Name:
-      <!--input tag here/ [(ngModel)]="node.id"-->
+
       <input
           style=" width: 60%;
                   height: 20%;"
@@ -40,7 +36,7 @@ export interface Node {
 
 export class NodeComponent implements AfterViewInit {
 
-  @Input() node: Node;
+  @Input() node: NodeModel;
   @Input() jsPlumbInstance;
 
   constructor( ) { }
@@ -88,7 +84,7 @@ export class NodeComponent implements AfterViewInit {
 
   }
 
-  removeNode(node: Node) {
+  removeNode(node: NodeModel) {
     this.jsPlumbInstance.remove(node.id);
   }
 
