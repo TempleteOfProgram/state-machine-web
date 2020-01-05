@@ -3,7 +3,12 @@ import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/
 
 @Component({
   selector: 'node-container',
-  templateUrl: './node-container.component.html'
+  template: `
+      <div style="position: relative;
+          height: 500px;">
+          <ng-template #nodes></ng-template>
+      </div>
+       `
 })
 
 export class NodeContainerComponent implements OnInit {
