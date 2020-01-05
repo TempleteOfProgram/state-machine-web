@@ -9,6 +9,7 @@ import { NodeService } from '../shared/services/node-service.service';
 import { MainComponent } from './main/main.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [NodeContainerComponent, NodeComponent, MainComponent],
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
   ],
   entryComponents: [NodeComponent],
   // bootstrap: [MainComponent],

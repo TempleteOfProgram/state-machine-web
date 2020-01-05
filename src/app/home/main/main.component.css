@@ -1,9 +1,10 @@
+
 .menu-css {
-    z-index: 5;
-    position: fixed;
     display: flex;
-    align-self: flex-end;
-    bottom: 7%;
-    margin-bottom: 5px;
-    margin-left: 80%;
-  }
+    position: fixed;
+    align-self: flex-start;
+    margin-left: 60%;
+    margin-bottom: 50%;
+    width: 150px;
+    height: 100px;
+    }

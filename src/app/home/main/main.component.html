@@ -7,14 +7,18 @@
 <node-container #nodeContainer [nodes]="nodes" [connections]="connections"></node-container>
 
 
-<div class="menu-css">
 
-    <button   (click)="nodeContainer.createNode()">
-      Add State
-    </button>
-    
-      <button class="align-middle" (click)="nodeContainer.saveNodeJson()">
-        Save JSON
-      </button>
-    
+<div class="menu-css">
+  <ul >
+      <ol>
+        <button   (click)="nodeContainer.createNode()">
+          Add State
+        </button>
+      </ol>
+      <ol>
+        <button class="align-middle" (click)="nodeContainer.saveNodeJson()">
+          Save JSON
+        </button>
+      </ol>
+  </ul> 
 </div>
