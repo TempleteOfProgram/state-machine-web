@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class WorkflowServicesService {
 
-  // readonly rootUrl = environment.serverUrl;
+  readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
 
 
@@ -22,7 +22,7 @@ export class WorkflowServicesService {
   }
 
   GetWorkflow(id: number) {
-
+    return this.http.get(this.rootUrl + 'endpoint');
   }
 
   GetAllWorkflow( ) {

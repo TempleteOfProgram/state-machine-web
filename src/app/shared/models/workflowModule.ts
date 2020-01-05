@@ -1,4 +1,4 @@
 export class WorkflowModel {
     workflowId ?: number;
-    data       ?: any;
+    data       ?: string;
 }
