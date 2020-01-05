@@ -1,3 +1,4 @@
+import { jsPlumb } from 'jsplumb';
 import { Component, AfterViewInit, Input } from '@angular/core';
 
 export interface Node {
@@ -27,7 +28,7 @@ export interface Node {
   styles: [`.node {
                 margin-top:20px;
                 border:1px solid #000;
-                position: fixed;
+                position: absolute;
                 top: 30%;
                 left:30%;
                 width: 150px;
@@ -85,5 +86,8 @@ export class NodeComponent implements AfterViewInit {
 
   }
 
+  removeNode(node: Node) {
+    jsPlumb.getInstance().remove(node.id);
+  }
 
 }
