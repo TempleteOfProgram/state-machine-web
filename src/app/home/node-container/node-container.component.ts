@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/
 
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'node-container',
   template: `
       <div style="position: relative;
