@@ -1,4 +1,3 @@
-import { jsPlumb } from 'jsplumb';
 import { Component, AfterViewInit, Input } from '@angular/core';
 
 export interface Node {
@@ -38,24 +37,25 @@ export interface Node {
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 }`]
 })
+
 export class NodeComponent implements AfterViewInit {
 
   @Input() node: Node;
   @Input() jsPlumbInstance;
 
-  constructor() { }
+  constructor( ) { }
 
 
   ngAfterViewInit() {
-    // tslint:disable-next-line: typedef
+
     const exampleDropOptions = {
       tolerance: 'touch',
       hoverClass: 'dropHover',
       activeClass: 'dragActive'
     };
 
-    // tslint:disable-next-line: typedef
-    let Endpoint_From = {
+
+    const EndpointFrom = {
       endpoint: ['Dot', { radius: 7 }],
       paintStyle: { fill: '#99cb3a' },
       isSource: true,
@@ -68,8 +68,8 @@ export class NodeComponent implements AfterViewInit {
       dropOptions: exampleDropOptions
     };
 
-    // tslint:disable-next-line: typedef
-    let Endpoint_TO = {
+
+    const EndpointTO = {
       endpoint: ['Dot', { radius: 4 }],
       paintStyle: { fill: '#ffcb3a' },
       isSource: false,
@@ -78,16 +78,19 @@ export class NodeComponent implements AfterViewInit {
       isTarget: true,
       dropOptions: exampleDropOptions
     };
+
+
     const { id } = this.node;
-    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id + '_bottom' }, Endpoint_From);
-    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id + '_top' }, Endpoint_TO);
+    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id + '_bottom' }, EndpointFrom);
+    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id + '_top' }, EndpointTO);
     this.jsPlumbInstance.draggable(id);
 
 
   }
 
   removeNode(node: Node) {
-    jsPlumb.getInstance().remove(node.id);
+    this.jsPlumbInstance.remove(node.id);
   }
+
 
 }

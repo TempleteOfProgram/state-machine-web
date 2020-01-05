@@ -17,6 +17,7 @@ import { MainComponent } from './main/main.component';
   ],
   entryComponents: [NodeComponent],
   // bootstrap: [MainComponent],
-  providers: [NodeService],
+  providers: [NodeService, NodeComponent],
 })
+
 export class HomeModule { }
