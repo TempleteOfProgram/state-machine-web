@@ -12,25 +12,39 @@ export class WorkflowServicesService {
   readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
 
-
-  SaveWorkflow(workflow: WorkflowModel) {
-
+  welcome() {
+    return this.http.get(this.rootUrl);
   }
 
-  UpdateWorkflow(workflow: WorkflowModel) {
+  SaveWorkflow( workflow_: string) {
+    const body: WorkflowModel = {
+      name : 'workflowName',
+      description : 'sending form front-end',
+      workflow : workflow_
+    };
+    return this.http.put(this.rootUrl + 'SaveWorkflow', body);
+  }
 
+  UpdateWorkflow(workflow_ : string) {
+    const body: WorkflowModel = {
+      workflowId: 36,
+      name : 'workflowName',
+      description : 'sending form front-end',
+      workflow : workflow_
+    };
+    return this.http.put(this.rootUrl + 'SaveWorkflow', body);
   }
 
   GetWorkflow(id: number) {
-    return this.http.get(this.rootUrl + 'endpoint');
+    return this.http.get(this.rootUrl + 'getWorkflow?id=' + id);
   }
 
   GetAllWorkflow( ) {
-
+    return this.http.get(this.rootUrl + 'AllWorkflows');
   }
 
   DeletetWorkflow(id: number) {
-
+    return this.http.delete(this.rootUrl + 'deleteWorkflow?id=' + id);
   }
 
 }

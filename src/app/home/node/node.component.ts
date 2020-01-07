@@ -12,13 +12,20 @@ import { Component, AfterViewInit, Input } from '@angular/core';
         aria-label="Close"
         (click)="removeNode(node)"> <span aria-hidden="true">×</span>
       </button>
-      <br>Status Name:
 
+      <br>Status Name:
       <input
-          style=" width: 60%;
-                  height: 20%;"
-                  [(ngModel)]="node.id"
-      />
+              style=" width: 60%;
+                      height: 20%;"
+                      [(ngModel)]="node.id"
+          />
+      <!-- <div *ngIf="node.id.length>1">
+          <input
+              style=" width: 60%;
+                      height: 20%;"
+                      [(ngModel)]="node.id"
+          />
+      </div> -->
   </div>`,
   styles: [`.node {
                 margin-top:20px;
@@ -75,8 +82,8 @@ export class NodeComponent implements AfterViewInit {
 
 
     const { id } = this.node;
-    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id + '_bottom' }, EndpointFrom);
-    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id + '_top' }, EndpointTO);
+    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
+    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
     this.jsPlumbInstance.draggable(id);
 
 

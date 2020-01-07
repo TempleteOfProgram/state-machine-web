@@ -1,4 +1,6 @@
+import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 import { Component } from '@angular/core';
+import { throwMatDuplicatedDrawerError } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main',
@@ -6,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
 
+  message: string;
+
+  constructor(private workflowService: WorkflowServicesService ) { }
   nodes = [];
   connections = [];
     fillFromJson() {
@@ -18,5 +23,13 @@ export class MainComponent {
         this.nodes = data.nodes;
         this.connections = data.connections;
     }
+
+    welcome( ) {
+      this.workflowService.welcome().subscribe((data: any) => {
+        this.message = data.message;
+        // console.log(this.message);
+      });
+    }
+
 
 }
