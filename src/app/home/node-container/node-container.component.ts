@@ -38,8 +38,7 @@ export class NodeContainerComponent implements OnInit {
   }
 
   createNewNode( ) {
-    const temp = String.fromCharCode(Math.floor(Math.random() * 100));
-    console.log(temp);
+    const temp = Math.floor(Math.random() * (100000000 - 1 + 1) + 1).toString();
     const node = { id: temp, top: 165, left: 100};
     this.pClinet.createNode(node);
   }
@@ -49,7 +48,7 @@ export class NodeContainerComponent implements OnInit {
     // tslint:disable-next-line: typedef
     const nodes = Array.from(container.querySelectorAll('.node')).map((node: HTMLDivElement) => {
       return {
-        id: node.id,
+        id: node.id.toString(),
         top: node.offsetTop,
         left: node.offsetLeft,
       };
@@ -57,25 +56,26 @@ export class NodeContainerComponent implements OnInit {
       // tslint:disable-next-line: typedef
     const connections = (this.pClinet.jsPlumbInstance.getAllConnections() as any[])
                           .map((conn) => ({ uuids: conn.getUuids() }));
-
       // tslint:disable-next-line: typedef
     const json = JSON.stringify({ nodes, connections });
-    console.log(json);
+
     this.WorkFlowService.SaveWorkflow(json).subscribe(res => {
       console.log(res);
     });
   }
 
-  DisplayNodes(node: NodeModel) {
-    // const node = { id: temp, top: 165, left: 100};
-    this.pClinet.createNode(node);
-  }
 
   RetriveWorkflow() {
-    this.WorkFlowService.GetWorkflow(53).subscribe((res: WorkflowModel) => {
+    this.WorkFlowService.GetWorkflow(70).subscribe((res: WorkflowModel) => {
           let obj = JSON.parse(res['workflow']);
+
           for( var i=0; i<obj.nodes.length; i++) {
-            this.DisplayNodes(obj.nodes[i]);
+             // console.log(obj.nodes[i]['id'])
+
+            this.pClinet.createNode(obj.nodes[i]);
+          }
+          for( var i=0; i<obj.connections.length; i++) {
+              this.pClinet.addConnection(obj.connections[i]['uuids']);
           }
       });
   }

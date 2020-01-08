@@ -17,15 +17,8 @@ import { Component, AfterViewInit, Input } from '@angular/core';
       <input
               style=" width: 60%;
                       height: 20%;"
-                      [(ngModel)]="node.id"
+                      (ngModel)="node.id"
           />
-      <!-- <div *ngIf="node.id.length>1">
-          <input
-              style=" width: 60%;
-                      height: 20%;"
-                      [(ngModel)]="node.id"
-          />
-      </div> -->
   </div>`,
   styles: [`.node {
                 margin-top:20px;
@@ -51,14 +44,7 @@ export class NodeComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
-    const exampleDropOptions = {
-      tolerance: 'touch',
-      hoverClass: 'dropHover',
-      activeClass: 'dragActive'
-    };
-
-
-    const EndpointFrom = {
+    let EndpointFrom = {
       endpoint: ['Dot', {radius: 8}],
       paintStyle: { fill: '#008000' },
       isSource: true,
@@ -71,7 +57,7 @@ export class NodeComponent implements AfterViewInit {
     };
 
 
-    const EndpointTO = {
+    let EndpointTO = {
       endpoint: ['Rectangle', {width: 10, height: 10}],
       paintStyle: { fill: '#FF0000' },
       isSource: false,
@@ -84,14 +70,35 @@ export class NodeComponent implements AfterViewInit {
     const { id } = this.node;
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
+    let common = {
+      anchors: [ 'BottomCenter', 'TopCenter' ],
+      endpoint: ['Rectangle', {width: 1, height: 1}],
+      connector: ['Flowchart'],
+      endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+    };
+    this.jsPlumbInstance.connect({source: '32049495', target: '92922925'}, common );
     this.jsPlumbInstance.draggable(id);
-
-
   }
 
+
   removeNode(node: NodeModel) {
+    console.log(node);
     this.jsPlumbInstance.remove(node.id);
   }
 
+
+  /**
+   * {"nodes":[
+   *      {"blockId":"startpoint","nodetype":"startpoint","positionX":150,"positionY":20},
+        * {"blockId":"endpoint","nodetype":"endpoint","positionX":150,"positionY":400},
+        * {"blockId":"taskcontainer1","nodetype":"task","positionX":92,"positionY":142},
+        * {"blockId":"taskcontainer2","nodetype":"task","positionX":459,"positionY":187}],
+   * "connections":[
+   *        {"connectionId":"con_16","pageSourceId":"taskcontainer1","pageTargetId":"taskcontainer2"},
+          * {"connectionId":"con_24","pageSourceId":"taskcontainer2","pageTargetId":"endpoint"},
+          * {"connectionId":"con_32","pageSourceId":"startpoint","pageTargetId":"taskcontainer1"}
+          * ],
+   * "numberOfElements":2}
+   */
 
 }

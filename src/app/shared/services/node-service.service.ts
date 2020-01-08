@@ -26,8 +26,12 @@ export class NodeService {
         this.rootViewContainer.insert(component.hostView);
         // console.log("in NodeService.." , component.instance );
     }
-    addConnection(connection: any) {
-      this.jsPlumbInstance.connect({ uuids: connection.uuids });
+    addConnection(connection) {
+      var common = {
+        anchors:[ "BottomCenter", "TopCenter" ]
+      };
+      console.log(connection[0], connection[1]);
+      this.jsPlumbInstance.connect({source: connection[0], target: connection[1] }, common );
     }
 
     public clear() {
