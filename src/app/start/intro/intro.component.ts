@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { WorkflowModel } from './../../shared/models/workflowModel';
 import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-intro',
@@ -19,19 +19,18 @@ export class IntroComponent implements OnInit {
   }
 
   LoadWorkflows( ) {
-    this.workfowService.GetAllWorkflow().subscribe( (res: WorkflowModel[])=> {
+    this.workfowService.GetAllWorkflow().subscribe( (res: WorkflowModel[]) => {
         this.workflowList = res;
-        console.log(this.workflowList);
+        // console.log(this.workflowList);
     });
-  };
+  }
 
   GetWorkflow(id: number) {
-    this.router.navigate(['/plumb/flow', id]);
+    this.router.navigate(['/plumb', id]);
 
   }
 
   AddWorkflow() {
-    console.log("adding new workflow");
     this.router.navigate(['/plumb']);
   }
 
