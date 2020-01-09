@@ -1,7 +1,9 @@
+import { WorkflowNameComponent } from './../workflow-name/workflow-name.component';
 import { Router } from '@angular/router';
 import { WorkflowModel } from './../../shared/models/workflowModel';
 import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-intro',
@@ -11,7 +13,9 @@ import { Component, OnInit } from '@angular/core';
 export class IntroComponent implements OnInit {
 
   workflowList: WorkflowModel [];
-  constructor(private workfowService: WorkflowServicesService, private router: Router) { }
+  constructor(private workfowService: WorkflowServicesService,
+              private router: Router,
+              private dialog: MatDialog) { }
 
 
   ngOnInit() {
@@ -21,7 +25,6 @@ export class IntroComponent implements OnInit {
   LoadWorkflows( ) {
     this.workfowService.GetAllWorkflow().subscribe( (res: WorkflowModel[]) => {
         this.workflowList = res;
-        // console.log(this.workflowList);
     });
   }
 
@@ -31,6 +34,12 @@ export class IntroComponent implements OnInit {
   }
 
   AddWorkflow() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    this.dialog.open(WorkflowNameComponent, dialogConfig);
     this.router.navigate(['/plumb']);
   }
 
