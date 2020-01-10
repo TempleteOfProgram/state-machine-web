@@ -1,5 +1,8 @@
+import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 import { NodeModel } from './../../shared/models/NodeModel';
 import { Component, AfterViewInit, Input } from '@angular/core';
+import { WorkflowModel } from 'src/app/shared/models/workflowModel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -12,7 +15,6 @@ import { Component, AfterViewInit, Input } from '@angular/core';
         aria-label="Close"
         (click)="removeNode(node)"> <span aria-hidden="true">×</span>
       </button>
-
       <br>Status Name:
       <input
               style=" width: 60%;
@@ -36,15 +38,17 @@ import { Component, AfterViewInit, Input } from '@angular/core';
 
 export class NodeComponent implements AfterViewInit {
 
+
   @Input() node: NodeModel;
   @Input() jsPlumbInstance;
 
-  constructor( ) { }
+  constructor(private workflowService: WorkflowServicesService,
+              private activeRoute: ActivatedRoute ) { }
 
 
   ngAfterViewInit() {
-
-    let EndpointFrom = {
+    this.setConn();
+    const EndpointFrom = {
       endpoint: ['Dot', {radius: 8}],
       paintStyle: { fill: '#008000' },
       isSource: true,
@@ -56,8 +60,7 @@ export class NodeComponent implements AfterViewInit {
       connectorOverlays: [['Arrow', { location: 1 }]]
     };
 
-
-    let EndpointTO = {
+    const EndpointTO = {
       endpoint: ['Rectangle', {width: 10, height: 10}],
       paintStyle: { fill: '#FF0000' },
       isSource: false,
@@ -65,40 +68,37 @@ export class NodeComponent implements AfterViewInit {
       maxConnections: 10,
       isTarget: true
     };
-
-
     const { id } = this.node;
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
-    let common = {
+    this.jsPlumbInstance.draggable(id);
+  }
+
+
+
+  setConn() {
+    this.activeRoute.paramMap.subscribe(param => {
+      this.workflowService.GetWorkflow(parseInt(param.get('id'))).subscribe((res: WorkflowModel) => {
+        const obj = JSON.parse(res['workflow']);
+        for( var i=0; i < obj.connections.length; i++) {
+            const conn = obj.connections[i]['uuids'];
+            this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
+        }
+    });
+  });
+
+    const common = {
       anchors: [ 'BottomCenter', 'TopCenter' ],
       endpoint: ['Rectangle', {width: 1, height: 1}],
       connector: ['Flowchart'],
       endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
     };
-    this.jsPlumbInstance.connect({source: '32049495', target: '92922925'}, common );
-    this.jsPlumbInstance.draggable(id);
-  }
 
+  }
 
   removeNode(node: NodeModel) {
-    console.log(node);
+    // console.log(node);
     this.jsPlumbInstance.remove(node.id);
   }
-
-
-  /**
-   * {"nodes":[
-   *      {"blockId":"startpoint","nodetype":"startpoint","positionX":150,"positionY":20},
-        * {"blockId":"endpoint","nodetype":"endpoint","positionX":150,"positionY":400},
-        * {"blockId":"taskcontainer1","nodetype":"task","positionX":92,"positionY":142},
-        * {"blockId":"taskcontainer2","nodetype":"task","positionX":459,"positionY":187}],
-   * "connections":[
-   *        {"connectionId":"con_16","pageSourceId":"taskcontainer1","pageTargetId":"taskcontainer2"},
-          * {"connectionId":"con_24","pageSourceId":"taskcontainer2","pageTargetId":"endpoint"},
-          * {"connectionId":"con_32","pageSourceId":"startpoint","pageTargetId":"taskcontainer1"}
-          * ],
-   * "numberOfElements":2}
-   */
 
 }

@@ -10,10 +10,9 @@ import { MainComponent } from './main/main.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
-  declarations: [NodeContainerComponent, NodeComponent, MainComponent, GraphComponent],
+  declarations: [NodeContainerComponent, NodeComponent, MainComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
