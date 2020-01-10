@@ -4,9 +4,21 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workflow-name',
-  templateUrl: './workflow-name.component.html',
-  styleUrls: ['./workflow-name.component.css']
-})
+  template: `
+        <h2 mat-dialog-title style="text-align: center;">Add WorkflowName</h2>
+
+        <mat-dialog-content>
+            <div class="uploadPic">
+                <input  type="text" class="hide_file" (change)="AddWorkflowName($event.target.value)">
+            </div>
+        </mat-dialog-content>
+
+        <mat-dialog-actions>
+            <button class="mat-raised-button mat-primary" mat-dialog-close>Submit</button>
+            <button class="mat-raised-button" mat-dialog-close>Cancel</button>
+        </mat-dialog-actions>
+      `
+  })
 export class WorkflowNameComponent {
 
   // default variables
