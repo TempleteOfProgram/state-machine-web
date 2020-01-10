@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { WorkflowNameComponent } from '../workflow-name/workflow-name.component';
+
 
 @Component({
   selector: 'app-main',
