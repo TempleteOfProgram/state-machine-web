@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-workflow-name',
   template: `
-        <h2 mat-dialog-title style="text-align: center;">Add WorkflowName</h2>
+        <h2 mat-dialog-title style="text-align: center;">Enter WorkflowName</h2>
 
         <mat-dialog-content>
             <div class="uploadPic">

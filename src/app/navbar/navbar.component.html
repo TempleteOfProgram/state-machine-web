@@ -10,7 +10,7 @@
               <button mat-icon-button (click) = "drawer.toggle()">
                       <mat-icon>menu</mat-icon>
               </button>
-              <button mat-button routerLink="">State-Machine</button>
+              <button mat-button (click)="home()" >State-Machine</button>
        
               <span class="spacer"></span>
               
@@ -29,10 +29,14 @@
             <span>Home</span>
           </button> 
 
-          <button mat-menu-item (click)="DisplayWorkflow()">
-            <mat-icon>group</mat-icon>
-            <span>Workflows</span>
-          </button> 
+          <div *ngIf= "workflowList != null">
+            <div *ngFor= "let workflow of workflowList">
+              <button mat-menu-item (click)="GetWorkflow(workflow.workflowId)">
+                <mat-icon>adjust</mat-icon>
+                <span>{{workflow.name}}</span>
+              </button>
+            </div>
+          </div>
 
   </mat-drawer>
  

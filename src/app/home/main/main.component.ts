@@ -1,4 +1,7 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { WorkflowNameComponent } from '../workflow-name/workflow-name.component';
 
 @Component({
   selector: 'app-main',
@@ -31,5 +34,18 @@ export class MainComponent {
 
   nodes = [];
   connections = [];
+  constructor(private dialog: MatDialog,
+              private router: Router) {}
+
+
+  AddWorkflow() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    this.dialog.open(WorkflowNameComponent, dialogConfig);
+    this.router.navigate(['/plumb']);
+  }
 
 }

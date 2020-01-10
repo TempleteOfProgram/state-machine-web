@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { WorkflowModel } from './../shared/models/workflowModel';
+import { WorkflowServicesService } from './../shared/services/workflow-services.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,14 +10,26 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  workflowList: WorkflowModel[];
+  constructor(private router: Router,
+              private workfowService: WorkflowServicesService) { }
 
   ngOnInit() {
+    this.LoadWorkflows();
+  }
+  LoadWorkflows( ) {
+    this.workfowService.GetAllWorkflow().subscribe( (res: WorkflowModel[]) => {
+        this.workflowList = res;
+    });
   }
 
-  DisplayWorkflow() {
-    // send to graph page
-    this.router.navigate(['/graph']);
+  home() {
+    this.router.navigate(['']);
+  }
+
+
+  GetWorkflow(id: number) {
+    this.router.navigate(['/plumb'], {queryParams: {workflowID: id}});
   }
 
 }

@@ -8,29 +8,20 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-intro',
   template: `
-    <div *ngIf="workflowList !=null">
-          <div *ngFor= "let workflow of workflowList">
-            <button (click)="GetWorkflow(workflow.workflowId)">
-              {{workflow.name}}
-            </button>
-          </div>
-
-      <div style="
-                  display: flex;
-                  flex-wrap: wrap;
-                  border-left: 50px solid white;
-                  margin-top: 30px;">
-
-          <div style="flex: 1;">
-              <img src='assets/workflow.PNG' width="240" height="240">  <br>
-          </div>
-          <div style="flex: 1;">
-              <img src='assets/workflow.PNG' width="240" height="240">  <br>
-          </div>
-      </div>
-
-
-    </div>
+    <!-- <div *ngIf="workflowList !=null">
+        <div *ngFor= "let workflow of workflowList">
+          <div style="flex: 1;
+                margin-left:10%">
+                <div style="
+                            width: 150px;
+                            height: 100px;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                            <button (click)="GetWorkflow(workflow.workflowId)">
+                                  {{workflow.name}}
+                            </button>
+                </div>
+        </div>
+    </div> -->
 
     <div style="z-index: 5;
                 position: fixed;

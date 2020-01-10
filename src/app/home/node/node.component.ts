@@ -21,7 +21,8 @@ import { ActivatedRoute } from '@angular/router';
                       height: 20%;"
                       (ngModel)="node.id"
           />
-  </div>`,
+  </div>`
+  ,
   styles: [`.node {
                 margin-top:20px;
                 border:1px solid #000;
@@ -46,7 +47,6 @@ export class NodeComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.setConn();
     const EndpointFrom = {
       endpoint: ['Dot', {radius: 8}],
       paintStyle: { fill: '#008000' },
@@ -71,21 +71,24 @@ export class NodeComponent implements AfterViewInit {
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
     this.jsPlumbInstance.draggable(id);
+    this.setConn();
   }
 
 
 
   setConn() {
-    this.activeRoute.paramMap.subscribe(param => {
-      this.workflowService.GetWorkflow(parseInt(param.get('id'))).subscribe((res: WorkflowModel) => {
-        const obj = JSON.parse(res['workflow']);
-        // window.location.reload();
-        for( var i=0; i < obj.connections.length; i++) {
-            const conn = obj.connections[i]['uuids'];
-            this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
-        }
-    });
-  });
+    this.activeRoute.queryParams.filter(params => params.workflowID).subscribe((res => {
+
+        this.workflowService.GetWorkflow(parseInt(res.workflowID)).subscribe((res: WorkflowModel) => {
+                const obj = JSON.parse(res['workflow']);
+                // window.location.reload();
+                for( var i=0; i < obj.connections.length; i++) {
+                    const conn = obj.connections[i]['uuids'];
+                    this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
+                }
+        });
+
+    }));
 
     const common = {
       anchors: [ 'BottomCenter', 'TopCenter' ],
@@ -93,11 +96,9 @@ export class NodeComponent implements AfterViewInit {
       connector: ['Flowchart'],
       endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
     };
-
   }
 
   removeNode(node: NodeModel) {
-    // console.log(node);
     this.jsPlumbInstance.remove(node.id);
   }
 

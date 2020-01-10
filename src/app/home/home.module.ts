@@ -10,9 +10,12 @@ import { MainComponent } from './main/main.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { WorkflowNameComponent } from './workflow-name/workflow-name.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [NodeContainerComponent, NodeComponent, MainComponent],
+  declarations: [NodeContainerComponent, NodeComponent, MainComponent, WorkflowNameComponent, HomeComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -20,10 +23,13 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    MatDialogModule,
   ],
   entryComponents: [NodeComponent],
   // bootstrap: [MainComponent],
-  providers: [NodeService, NodeComponent],
+  providers: [NodeService,
+              NodeComponent,
+              {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
 })
 
 export class HomeModule { }
