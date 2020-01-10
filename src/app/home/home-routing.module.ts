@@ -1,3 +1,4 @@
+import { NodeContainerComponent } from './node-container/node-container.component';
 import { MainComponent } from './main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,15 +10,13 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   },
-
-  // parameterized workflow url to retrive specific workflow
-  {
-    path: ':id',
-    component: MainComponent
-  },
   {
     path: 'name',
     component: WorkflowNameComponent
+  },
+  {
+    path: 'plumb',
+    component: MainComponent
   },
   // default component
   {

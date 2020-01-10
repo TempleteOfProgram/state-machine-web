@@ -34,18 +34,5 @@ export class MainComponent {
 
   nodes = [];
   connections = [];
-  constructor(private dialog: MatDialog,
-              private router: Router) {}
-
-
-  AddWorkflow() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    this.dialog.open(WorkflowNameComponent, dialogConfig);
-    this.router.navigate(['/plumb']);
-  }
 
 }

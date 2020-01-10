@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-workflow-name',
@@ -9,7 +8,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 
     <mat-dialog-content>
         <div class="uploadPic">
-            <input  type="text" class="hide_file" (change)="AddWorkflowName($event.target.value)">
+            <input  type="text"  (change)="AddWorkflowName($event.target.value)">
         </div>
     </mat-dialog-content>
 
@@ -21,8 +20,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 })
 export class WorkflowNameComponent implements OnInit {
 
-  constructor(private dialog: MatDialog,
-              private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

@@ -103,6 +103,7 @@ export class NodeContainerComponent implements OnInit {
             for ( let i = 0; i < obj.nodes.length; i++) {
               this.pClinet.createNode(obj.nodes[i]);
             }
+
         });
       }
 
