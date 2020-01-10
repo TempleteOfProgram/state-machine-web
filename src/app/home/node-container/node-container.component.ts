@@ -40,9 +40,13 @@ export class NodeContainerComponent implements OnInit {
               ) { }
 
   async ngOnInit() {
-   this.LoadWorkflow();
+   await this.LoadWorkflow();
 
-   this.pClinet.setRootViewContainerRef(this.viewContainerRef);
+  this.pClinet.setRootViewContainerRef(this.viewContainerRef);
+  this.WorkFlowService.bs.subscribe(data => {
+      this.LoadWorkflow(data['id']);
+  })
+
    this.nodes.forEach(node => {
       this.pClinet.createNode(node);
       });
@@ -87,14 +91,23 @@ export class NodeContainerComponent implements OnInit {
   }
 
 
-  LoadWorkflow() {
+  LoadWorkflow(id = 0) {
+    //debugger;
+    if(id == 0)
+    {
+      // taking workflowID form url
+      this.activeRoute.queryParams
+          .filter(params => params.workflowID)
+          .subscribe((res => {
+            this.workflowId = res.workflowID;
+          }));
+    }
+    else
+    {
+      this.workflowId = id;
 
-    // taking workflowID form url
-    this.activeRoute.queryParams
-        .filter(params => params.workflowID)
-        .subscribe((res => {
-          this.workflowId = res.workflowID;
-        }));
+    }
+    // this.viewContainerRef.clear();
 
     // loading workflow
     if ( this.workflowId != null ) {

@@ -11,10 +11,12 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   workflowList: WorkflowModel[];
+  obs;
   constructor(private router: Router,
               private workfowService: WorkflowServicesService) { }
 
   ngOnInit() {
+    this.obs = this.workfowService.bs;
     this.LoadWorkflows();
   }
   LoadWorkflows( ) {
@@ -29,7 +31,9 @@ export class NavbarComponent implements OnInit {
 
 
   GetWorkflow(id: number) {
-    this.router.navigate(['/plumb'], {queryParams: {workflowID: id}});
+    //this.router.navigate(['/plumb'], {queryParams: {workflowID: id}});
+  
+    this.obs.next({id:id});
   }
 
 }

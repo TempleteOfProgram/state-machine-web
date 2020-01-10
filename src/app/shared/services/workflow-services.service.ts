@@ -2,6 +2,8 @@ import { WorkflowModel } from './../models/workflowModel';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from "rxjs/Observable"
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ import { HttpClient } from '@angular/common/http';
 
 export class WorkflowServicesService {
 
+  bs = new BehaviorSubject<number>(0);
+  
   readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
 
