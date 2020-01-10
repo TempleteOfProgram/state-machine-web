@@ -16,9 +16,9 @@ export class WorkflowServicesService {
     return this.http.get(this.rootUrl);
   }
 
-  SaveWorkflow( workflow_: string) {
+  SaveWorkflow( workflow_: string, workflowName: string) {
     const body: WorkflowModel = {
-      name : 'workflowName',
+      name : workflowName,
       description : 'sending form front-end',
       workflow : workflow_
     };

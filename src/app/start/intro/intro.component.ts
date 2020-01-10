@@ -14,6 +14,22 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
               {{workflow.name}}
             </button>
           </div>
+
+      <div style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  border-left: 50px solid white;
+                  margin-top: 30px;">
+
+          <div style="flex: 1;">
+              <img src='assets/workflow.PNG' width="240" height="240">  <br>
+          </div>
+          <div style="flex: 1;">
+              <img src='assets/workflow.PNG' width="240" height="240">  <br>
+          </div>
+      </div>
+
+
     </div>
 
     <div style="z-index: 5;

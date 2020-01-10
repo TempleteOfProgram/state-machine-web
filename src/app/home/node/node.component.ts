@@ -38,7 +38,6 @@ import { ActivatedRoute } from '@angular/router';
 
 export class NodeComponent implements AfterViewInit {
 
-
   @Input() node: NodeModel;
   @Input() jsPlumbInstance;
 
@@ -80,6 +79,7 @@ export class NodeComponent implements AfterViewInit {
     this.activeRoute.paramMap.subscribe(param => {
       this.workflowService.GetWorkflow(parseInt(param.get('id'))).subscribe((res: WorkflowModel) => {
         const obj = JSON.parse(res['workflow']);
+        // window.location.reload();
         for( var i=0; i < obj.connections.length; i++) {
             const conn = obj.connections[i]['uuids'];
             this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
