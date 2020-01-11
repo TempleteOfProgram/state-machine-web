@@ -27,7 +27,7 @@ import { WorkflowServicesService } from './../../shared/services/workflow-servic
 
 export class NodeContainerComponent implements OnInit {
 
-  @Input() workflowId: number;
+  workflowId: number;
   @Input() nodes = [];
   @Input() connections = [];
   @ViewChild('nodes', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
@@ -42,10 +42,12 @@ export class NodeContainerComponent implements OnInit {
   async ngOnInit() {
    await this.LoadWorkflow();
 
-  this.pClinet.setRootViewContainerRef(this.viewContainerRef);
-  this.WorkFlowService.bs.subscribe(data => {
+   this.pClinet.setRootViewContainerRef(this.viewContainerRef);
+
+   this.WorkFlowService.bs.subscribe(data => {
       this.LoadWorkflow(data['id']);
-  })
+  });
+
 
    this.nodes.forEach(node => {
       this.pClinet.createNode(node);
@@ -57,6 +59,7 @@ export class NodeContainerComponent implements OnInit {
         });
       });
   }
+
 
   createNewNode( ) {
     const temp = Math.floor(Math.random() * (100000000 - 1 + 1) + 1).toString();
@@ -85,38 +88,34 @@ export class NodeContainerComponent implements OnInit {
         .subscribe(params => {
           // console.log(params.workflowName);
           this.WorkFlowService.SaveWorkflow(json, params.workflowName).subscribe(res => {
-            // console.log(res);
+            console.log(res);
           });
       });
   }
 
 
   LoadWorkflow(id = 0) {
-    //debugger;
-    if(id == 0)
-    {
+    // debugger;
+    if (id == 0) {
       // taking workflowID form url
       this.activeRoute.queryParams
           .filter(params => params.workflowID)
           .subscribe((res => {
             this.workflowId = res.workflowID;
           }));
-    }
-    else
-    {
+    } else {
       this.workflowId = id;
 
     }
-    // this.viewContainerRef.clear();
-
+    this.viewContainerRef.clear();
+    
     // loading workflow
     if ( this.workflowId != null ) {
-          this.WorkFlowService.GetWorkflow(this.workflowId).subscribe((res: WorkflowModel) => {
+          this.WorkFlowService.GetWorkflow(id).subscribe((res: WorkflowModel) => {
             const obj = JSON.parse(res.workflow);
             for ( let i = 0; i < obj.nodes.length; i++) {
               this.pClinet.createNode(obj.nodes[i]);
             }
-
         });
       }
 

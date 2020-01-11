@@ -77,25 +77,24 @@ export class NodeComponent implements AfterViewInit {
 
 
   setConn() {
-    this.activeRoute.queryParams.filter(params => params.workflowID).subscribe((res => {
+        let common = {
+          anchors: [ 'BottomCenter', 'TopCenter' ],
+          endpoint: ['Rectangle', {width: 1, height: 1}],
+          connector: ['Flowchart'],
+          endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+        };
 
-        this.workflowService.GetWorkflow(parseInt(res.workflowID)).subscribe((res: WorkflowModel) => {
-                const obj = JSON.parse(res['workflow']);
-                // window.location.reload();
-                for( var i=0; i < obj.connections.length; i++) {
-                    const conn = obj.connections[i]['uuids'];
-                    this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
-                }
-        });
+        this.activeRoute.queryParams.filter(params => params.workflowID).subscribe((res => {
+            this.workflowService.GetWorkflow(parseInt(res.workflowID)).subscribe((res: WorkflowModel) => {
+                    const obj = JSON.parse(res['workflow']);
+                    // window.location.reload();
+                    for( var i=0; i < obj.connections.length; i++) {
+                        const conn = obj.connections[i]['uuids'];
+                        this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
+                    }
+            });
+        }));
 
-    }));
-
-    const common = {
-      anchors: [ 'BottomCenter', 'TopCenter' ],
-      endpoint: ['Rectangle', {width: 1, height: 1}],
-      connector: ['Flowchart'],
-      endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
-    };
   }
 
   removeNode(node: NodeModel) {

@@ -3,7 +3,7 @@ import { MainComponent } from './main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkflowNameComponent } from './workflow-name/workflow-name.component';
-import { HomeComponent } from './home/home.component';
+// import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -14,10 +14,10 @@ const routes: Routes = [
     path: 'name',
     component: WorkflowNameComponent
   },
-  {
-    path: 'plumb',
-    component: MainComponent
-  },
+  // {
+  //   path: 'plumb',
+  //   component: MainComponent
+  // },
   // default component
   {
     path: '**',

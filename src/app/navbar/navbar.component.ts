@@ -2,6 +2,7 @@ import { WorkflowModel } from './../shared/models/workflowModel';
 import { WorkflowServicesService } from './../shared/services/workflow-services.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'app-navbar',
@@ -11,12 +12,13 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   workflowList: WorkflowModel[];
-  obs;
+  // Observable_: Observable<number>;
+  behaviorSubject: any;
   constructor(private router: Router,
               private workfowService: WorkflowServicesService) { }
 
   ngOnInit() {
-    this.obs = this.workfowService.bs;
+    this.behaviorSubject = this.workfowService.bs;
     this.LoadWorkflows();
   }
   LoadWorkflows( ) {
@@ -32,8 +34,8 @@ export class NavbarComponent implements OnInit {
 
   GetWorkflow(id: number) {
     //this.router.navigate(['/plumb'], {queryParams: {workflowID: id}});
-  
-    this.obs.next({id:id});
+    this.behaviorSubject.next({id:id});
+    this.router.navigate(['/plumb']);
   }
 
 }

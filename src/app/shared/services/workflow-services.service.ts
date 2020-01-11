@@ -2,7 +2,6 @@ import { WorkflowModel } from './../models/workflowModel';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from "rxjs/Observable"
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
@@ -11,8 +10,8 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 export class WorkflowServicesService {
 
-  bs = new BehaviorSubject<number>(0);
-  
+  bs = new BehaviorSubject<number>(2);
+
   readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
 
@@ -20,7 +19,8 @@ export class WorkflowServicesService {
     return this.http.get(this.rootUrl);
   }
 
-  SaveWorkflow( workflow_: string, workflowName: string) {
+
+SaveWorkflow( workflow_: string, workflowName: string) {
     const body: WorkflowModel = {
       name : workflowName,
       description : 'sending form front-end',
@@ -40,6 +40,7 @@ export class WorkflowServicesService {
   }
 
   GetWorkflow(id: number) {
+    console.log(id);
     return this.http.get(this.rootUrl + 'getWorkflow?id=' + id);
   }
 

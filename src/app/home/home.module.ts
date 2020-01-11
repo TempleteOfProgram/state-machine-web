@@ -12,10 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { WorkflowNameComponent } from './workflow-name/workflow-name.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
-import { HomeComponent } from './home/home.component';
+// import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [NodeContainerComponent, NodeComponent, MainComponent, WorkflowNameComponent, HomeComponent],
+  declarations: [NodeContainerComponent, NodeComponent, MainComponent, WorkflowNameComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
