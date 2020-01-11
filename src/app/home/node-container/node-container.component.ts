@@ -108,13 +108,12 @@ export class NodeContainerComponent implements OnInit {
 
     }
     this.viewContainerRef.clear();
-
+    this.pClinet.jsPlumbInstance.cleanupListeners();
     // connection properties
     let common = {
-      anchors: [ 'BottomCenter', 'TopCenter' ],
-      endpoint: ['Rectangle', {width: 1, height: 1}],
       connector: ['Flowchart'],
-      endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+      // endpoint: ['Rectangle', {width: 1, height: 1}],
+      // endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
     };
 
     // loading workflow
@@ -125,8 +124,11 @@ export class NodeContainerComponent implements OnInit {
               this.pClinet.createNode(obj.nodes[i]);
             }
             for ( let i = 0; i < obj.connections.length; i++) {
-              console.log(obj.connections[i]);
+
+              const conn = obj.connections[i].uuids;
+              console.log(conn);
               this.pClinet.jsPlumbInstance.connect(obj.connections[i], common);
+              // this.pClinet.jsPlumbInstance.connect({source: conn[0], target: conn[1], connector: "Straight" });
             }
         });
       }

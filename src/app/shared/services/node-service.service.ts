@@ -27,7 +27,13 @@ export class NodeService {
         // console.log("in NodeService.." , component.instance );
     }
     addConnection(connection) {
-      this.jsPlumbInstance.connect({source: connection[0], target: connection[1] });
+      let common = {
+        anchors: [ 'BottomCenter', 'TopCenter' ],
+        endpoint: ['Rectangle', {width: 1, height: 1}],
+        connector: ['Flowchart'],
+        endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+      };
+      this.jsPlumbInstance.connect({source: connection[0], target: connection[1], anchors: [ 'BottomCenter', 'TopCenter' ] });
     }
 
     public clear() {
