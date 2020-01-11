@@ -12,7 +12,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class NavbarComponent implements OnInit {
 
   workflowList: WorkflowModel[];
-  // Observable_: Observable<number>;
   behaviorSubject: any;
   constructor(private router: Router,
               private workfowService: WorkflowServicesService) { }

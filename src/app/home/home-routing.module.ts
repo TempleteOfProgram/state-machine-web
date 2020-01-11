@@ -1,23 +1,13 @@
-import { NodeContainerComponent } from './node-container/node-container.component';
-import { MainComponent } from './main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { WorkflowNameComponent } from './workflow-name/workflow-name.component';
-// import { HomeComponent } from './home/home.component';
+import { MainComponent } from './display-container/main.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent
   },
-  {
-    path: 'name',
-    component: WorkflowNameComponent
-  },
-  // {
-  //   path: 'plumb',
-  //   component: MainComponent
-  // },
   // default component
   {
     path: '**',

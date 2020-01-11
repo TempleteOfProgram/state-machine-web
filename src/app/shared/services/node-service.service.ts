@@ -1,7 +1,7 @@
 import { jsPlumb } from 'jsplumb';
 import { NodeModel } from './../models/NodeModel';
-import { NodeComponent} from './../../home/node/node.component';
 import {ComponentFactoryResolver, Injectable} from '@angular/core';
+import { NodeComponent } from './../../home/create-node/node.component';
 
 
 @Injectable({
@@ -27,11 +27,7 @@ export class NodeService {
         // console.log("in NodeService.." , component.instance );
     }
     addConnection(connection) {
-      var common = {
-        anchors:[ "BottomCenter", "TopCenter" ]
-      };
-      console.log(connection[0], connection[1]);
-      this.jsPlumbInstance.connect({source: connection[0], target: connection[1] }, common );
+      this.jsPlumbInstance.connect({source: connection[0], target: connection[1] });
     }
 
     public clear() {
