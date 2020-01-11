@@ -1,8 +1,6 @@
-import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 import { NodeModel } from './../../shared/models/NodeModel';
 import { Component, AfterViewInit, Input } from '@angular/core';
-import { WorkflowModel } from 'src/app/shared/models/workflowModel';
-import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -42,8 +40,7 @@ export class NodeComponent implements AfterViewInit {
   @Input() node: NodeModel;
   @Input() jsPlumbInstance;
 
-  constructor(private workflowService: WorkflowServicesService,
-              private activeRoute: ActivatedRoute ) { }
+  constructor() { }
 
 
   ngAfterViewInit() {
@@ -71,31 +68,31 @@ export class NodeComponent implements AfterViewInit {
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
     this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
     this.jsPlumbInstance.draggable(id);
-    this.setConn();
+    // this.setConn();
   }
 
 
 
-  setConn() {
-        let common = {
-          anchors: [ 'BottomCenter', 'TopCenter' ],
-          endpoint: ['Rectangle', {width: 1, height: 1}],
-          connector: ['Flowchart'],
-          endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
-        };
+  // setConn() {
+  //       let common = {
+  //         anchors: [ 'BottomCenter', 'TopCenter' ],
+  //         endpoint: ['Rectangle', {width: 1, height: 1}],
+  //         connector: ['Flowchart'],
+  //         endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+  //       };
 
-        this.activeRoute.queryParams.filter(params => params.workflowID).subscribe((res => {
-            this.workflowService.GetWorkflow(parseInt(res.workflowID)).subscribe((res: WorkflowModel) => {
-                    const obj = JSON.parse(res['workflow']);
-                    // window.location.reload();
-                    for( var i=0; i < obj.connections.length; i++) {
-                        const conn = obj.connections[i]['uuids'];
-                        this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
-                    }
-            });
-        }));
+  //       this.activeRoute.queryParams.filter(params => params.workflowID).subscribe((res => {
+  //           this.workflowService.GetWorkflow(parseInt(res.workflowID)).subscribe((res: WorkflowModel) => {
+  //                   const obj = JSON.parse(res['workflow']);
+  //                   // window.location.reload();
+  //                   for( var i=0; i < obj.connections.length; i++) {
+  //                       const conn = obj.connections[i]['uuids'];
+  //                       this.jsPlumbInstance.connect({source: conn[0], target: conn[1]}, common );
+  //                   }
+  //           });
+  //       }));
 
-  }
+  // }
 
   removeNode(node: NodeModel) {
     this.jsPlumbInstance.remove(node.id);

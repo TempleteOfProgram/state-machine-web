@@ -1,9 +1,11 @@
-import { WorkflowNameComponent } from './../workflow-name/workflow-name.component';
 import { Router } from '@angular/router';
-import { WorkflowModel } from './../../shared/models/workflowModel';
-import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 import { Component, OnInit } from '@angular/core';
+import { WorkflowModel } from './../../shared/models/workflowModel';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { WorkflowNameComponent } from './../workflow-name/workflow-name.component';
+import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
+
+
 
 @Component({
   selector: 'app-intro',

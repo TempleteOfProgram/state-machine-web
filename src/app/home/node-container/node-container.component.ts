@@ -108,13 +108,25 @@ export class NodeContainerComponent implements OnInit {
 
     }
     this.viewContainerRef.clear();
-    
+
+    // connection properties
+    let common = {
+      anchors: [ 'BottomCenter', 'TopCenter' ],
+      endpoint: ['Rectangle', {width: 1, height: 1}],
+      connector: ['Flowchart'],
+      endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+    };
+
     // loading workflow
     if ( this.workflowId != null ) {
           this.WorkFlowService.GetWorkflow(id).subscribe((res: WorkflowModel) => {
             const obj = JSON.parse(res.workflow);
             for ( let i = 0; i < obj.nodes.length; i++) {
               this.pClinet.createNode(obj.nodes[i]);
+            }
+            for ( let i = 0; i < obj.connections.length; i++) {
+              console.log(obj.connections[i]);
+              this.pClinet.jsPlumbInstance.connect(obj.connections[i], common);
             }
         });
       }
