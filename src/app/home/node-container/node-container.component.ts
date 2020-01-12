@@ -1,3 +1,4 @@
+import { jsPlumb } from 'jsplumb';
 import 'rxjs/add/operator/filter';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowModel } from './../../shared/models/workflowModel';
@@ -105,15 +106,21 @@ export class NodeContainerComponent implements OnInit {
           }));
     } else {
       this.workflowId = id;
-
     }
+
+    // clear and reset before loading new workflow
     this.viewContainerRef.clear();
-    this.pClinet.jsPlumbInstance.reset();
-    // connection properties
+    // this.pClinet.jsPlumbInstance.reset();
+     this.pClinet.jsPlumbInstance.deleteEveryConnection();
+     this.pClinet.jsPlumbInstance.deleteEveryEndpoint();
+
+
+    //connection properties
     let common = {
+      anchors: [ 'BottomCenter', 'TopCenter' ],
+      endpoint: ['Rectangle', {width: 1, height: 1}],
       connector: ['Flowchart'],
-      // endpoint: ['Rectangle', {width: 1, height: 1}],
-      // endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+      endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
     };
 
     // loading workflow
@@ -126,9 +133,9 @@ export class NodeContainerComponent implements OnInit {
             for ( let i = 0; i < obj.connections.length; i++) {
               //debugger;
               const conn = obj.connections[i].uuids;
-              console.log(conn);
+              console.log(obj.connections[i]);
               this.pClinet.jsPlumbInstance.connect(obj.connections[i], common);
-              // this.pClinet.jsPlumbInstance.connect({source: conn[0], target: conn[1], connector: "Straight" });
+              // this.pClinet.jsPlumbInstance.connect({source: conn[0], target: conn[1], connector: "Straight" }, common);
             }
         });
       }

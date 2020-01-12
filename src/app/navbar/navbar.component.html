@@ -31,7 +31,7 @@
 
           <div *ngIf= "workflowList != null">
             <div *ngFor= "let workflow of workflowList">
-              <button mat-menu-item (click)="GetWorkflow(workflow.workflowId)">
+              <button mat-menu-item (click)="SetWorkflow(workflow.workflowId)">
                 <mat-icon>adjust</mat-icon>
                 <span>{{workflow.name}}</span>
               </button>
