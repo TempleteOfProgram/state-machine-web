@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './start/start.module#StartModule'
+    loadChildren: './start-screen/start.module#StartModule'
   },
   {
     path : 'plumb',

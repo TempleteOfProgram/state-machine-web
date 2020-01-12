@@ -108,7 +108,7 @@ export class NodeContainerComponent implements OnInit {
 
     }
     this.viewContainerRef.clear();
-    this.pClinet.jsPlumbInstance.cleanupListeners();
+    this.pClinet.jsPlumbInstance.reset();
     // connection properties
     let common = {
       connector: ['Flowchart'],
@@ -124,7 +124,7 @@ export class NodeContainerComponent implements OnInit {
               this.pClinet.createNode(obj.nodes[i]);
             }
             for ( let i = 0; i < obj.connections.length; i++) {
-
+              //debugger;
               const conn = obj.connections[i].uuids;
               console.log(conn);
               this.pClinet.jsPlumbInstance.connect(obj.connections[i], common);
