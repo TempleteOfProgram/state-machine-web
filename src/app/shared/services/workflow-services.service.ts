@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 export class WorkflowServicesService {
 
-  bs = new BehaviorSubject<number>(2);
+  bs = new BehaviorSubject<number>(10);
 
   readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
@@ -39,7 +40,7 @@ SaveWorkflow( workflow_: string, workflowName: string) {
     return this.http.put(this.rootUrl + 'SaveWorkflow', body);
   }
 
-  GetWorkflow(id: number) {
+  GetWorkflow(id: number): Observable<WorkflowModel> {
     console.log(id);
     return this.http.get(this.rootUrl + 'getWorkflow?id=' + id);
   }

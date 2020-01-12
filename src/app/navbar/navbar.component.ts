@@ -36,5 +36,9 @@ export class NavbarComponent implements OnInit {
     this.behaviorSubject.next({id:id});
     this.router.navigate(['/plumb']);
   }
+  GetWorkflow(id: number) {
+    this.workfowService.GetWorkflow(id);
+    this.router.navigate(['/plumb']);
+  }
 
 }
