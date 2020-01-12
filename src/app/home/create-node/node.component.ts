@@ -76,6 +76,9 @@ export class NodeComponent implements AfterViewInit {
     // creating dynamic connection among nodes
     this.WorkFlowService.bs.subscribe(data => {
       this.setConn(data['id']);
+      // if(data['id'] != undefined) {
+      //   this.setConn(data['id']);
+      // }
     });
 
   }

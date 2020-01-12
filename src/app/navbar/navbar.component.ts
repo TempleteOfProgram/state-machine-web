@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
 import { WorkflowModel } from './../shared/models/workflowModel';
 import { WorkflowServicesService } from './../shared/services/workflow-services.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -36,9 +37,6 @@ export class NavbarComponent implements OnInit {
     this.behaviorSubject.next({id:id});
     this.router.navigate(['/plumb']);
   }
-  GetWorkflow(id: number) {
-    this.workfowService.GetWorkflow(id);
-    this.router.navigate(['/plumb']);
-  }
+
 
 }

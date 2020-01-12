@@ -1,3 +1,4 @@
+import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -19,19 +20,29 @@ import { Router } from '@angular/router';
         </mat-dialog-actions>
       `
   })
-export class WorkflowNameComponent {
+export class WorkflowNameComponent implements OnInit{
+
+
+  ngOnInit() {
+    this.behaviorSubject = this.workfowService.bs;
+  }
 
   // default variables
-  workflowName: string = null;
+  // workflowName: string = null;
+  behaviorSubject: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private workfowService: WorkflowServicesService) { }
 
   AddWorkflowName( name: string) {
-    if (name != null) {
-      // console.log(name);
-      this.router.navigate(['/plumb'], {queryParams: {workflowName: name}});
-    } else {
-      this.router.navigate(['']);
-    }
+        if (name != null) {
+          // console.log(name);
+          // this.router.navigate(['/plumb'], {queryParams: {workflowName: name}});
+          this.behaviorSubject.next({workflowname: name});
+        } else {
+          this.router.navigate(['']);
+        }
   }
+
+
 }

@@ -24,28 +24,13 @@ import { WorkflowServicesService } from './../../shared/services/workflow-servic
     </div>
   `
 })
-export class IntroComponent implements OnInit {
+export class IntroComponent {
 
   workflowList: WorkflowModel [];
-  constructor(private workfowService: WorkflowServicesService,
-              private router: Router,
+
+  constructor(private router: Router,
               private dialog: MatDialog) { }
 
-
-  ngOnInit() {
-    this.LoadWorkflows();
-  }
-
-  LoadWorkflows( ) {
-    this.workfowService.GetAllWorkflow().subscribe( (res: WorkflowModel[]) => {
-        this.workflowList = res;
-    });
-  }
-
-  GetWorkflow(id: number) {
-    this.router.navigate(['/plumb', id]);
-
-  }
 
   AddWorkflow() {
     const dialogConfig = new MatDialogConfig();

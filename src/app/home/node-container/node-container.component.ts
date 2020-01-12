@@ -1,5 +1,4 @@
 import 'rxjs/add/operator/filter';
-import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowModel } from './../../shared/models/workflowModel';
 import { NodeService } from './../../shared/services/node-service.service';
 import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/core';
@@ -28,25 +27,24 @@ import { WorkflowServicesService } from './../../shared/services/workflow-servic
 export class NodeContainerComponent implements OnInit {
 
   workflowId: number;
+  workflowname: string = null;
+
   @Input() nodes = [];
   @Input() connections = [];
   @ViewChild('nodes', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
 
 
-  constructor(private router: Router,
-              private pClinet: NodeService,
-              private activeRoute: ActivatedRoute,
+  constructor(private pClinet: NodeService,
               private WorkFlowService: WorkflowServicesService
               ) { }
 
-  async ngOnInit() {
-   await this.LoadWorkflow();
-
+  ngOnInit() {
    this.pClinet.setRootViewContainerRef(this.viewContainerRef);
 
    this.WorkFlowService.bs.subscribe(data => {
-      this.LoadWorkflow(data['id']);
-  });
+        this.LoadWorkflow(data['id']);
+        this.workflowname = data['workflowname'];
+    });
 
   }
 
@@ -57,7 +55,7 @@ export class NodeContainerComponent implements OnInit {
     this.pClinet.createNode(node);
   }
 
-  saveNodeJson() {
+  saveNodeJson(workflowName: string) {
     const container = this.viewContainerRef.element.nativeElement.parentNode;
     // tslint:disable-next-line: typedef
     const nodes = Array.from(container.querySelectorAll('.node')).map((node: HTMLDivElement) => {
@@ -70,28 +68,15 @@ export class NodeContainerComponent implements OnInit {
     const connections = (this.pClinet.jsPlumbInstance.getAllConnections() as any[])
                           .map((conn) => ({ uuids: conn.getUuids() }));
     const json = JSON.stringify({ nodes, connections });
+    this.WorkFlowService.SaveWorkflow(json, workflowName).subscribe(res => {
+      console.log(res);
+    });
 
-    this.activeRoute.queryParams.filter(params => params.workflowName).subscribe(params => {
-          this.WorkFlowService.SaveWorkflow(json, params.workflowName).subscribe(res => {
-            console.log(res);
-          });
-      });
   }
 
 
-  LoadWorkflow(id = 0) {
+  LoadWorkflow(workflowid) {
         // debugger;
-        if (id == 0) {
-          // taking workflowID form url
-          this.activeRoute.queryParams
-              .filter(params => params.workflowID)
-              .subscribe((res => {
-                this.workflowId = res.workflowID;
-              }));
-        } else {
-          this.workflowId = id;
-        }
-
         // clear and reset before loading new workflow
         this.viewContainerRef.clear();
         this.pClinet.jsPlumbInstance.reset();
@@ -100,8 +85,8 @@ export class NodeContainerComponent implements OnInit {
 
 
         // loading workflow
-        if ( this.workflowId != null ) {
-              this.WorkFlowService.GetWorkflow(id).subscribe((res: WorkflowModel) => {
+        if ( workflowid != null ) {
+              this.WorkFlowService.GetWorkflow(workflowid).subscribe((res: WorkflowModel) => {
                 const obj = JSON.parse(res.workflow);
                 for ( let i = 0; i < obj.nodes.length; i++) {
                   this.pClinet.createNode(obj.nodes[i]);

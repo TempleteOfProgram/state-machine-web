@@ -42,7 +42,9 @@ SaveWorkflow( workflow_: string, workflowName: string) {
 
   GetWorkflow(id: number): Observable<WorkflowModel> {
     console.log(id);
-    return this.http.get(this.rootUrl + 'getWorkflow?id=' + id);
+    if( id != undefined) {
+      return this.http.get(this.rootUrl + 'getWorkflow?id=' + id);
+    }
   }
 
   GetAllWorkflow( ) {
