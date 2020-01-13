@@ -26,15 +26,15 @@ export class NodeService {
         this.rootViewContainer.insert(component.hostView);
         // console.log("in NodeService.." , component.instance );
     }
-    addConnection(connection) {
-      let common = {
-        anchors: [ 'BottomCenter', 'TopCenter' ],
-        endpoint: ['Rectangle', {width: 1, height: 1}],
-        connector: ['Flowchart'],
-        endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
-      };
-      this.jsPlumbInstance.connect({source: connection[0], target: connection[1], anchors: [ 'BottomCenter', 'TopCenter' ] });
-    }
+    // addConnection(connection) {
+    //   let common = {
+    //     anchors: [ 'BottomCenter', 'TopCenter' ],
+    //     endpoint: ['Rectangle', {width: 1, height: 1}],
+    //     connector: ['Flowchart'],
+    //     endpointStyle: {fillStyle: 'rgb(47, 79, 79)'}
+    //   };
+    //   this.jsPlumbInstance.connect({source: connection[0], target: connection[1] }, common);
+    // }
 
     public clear() {
       this.rootViewContainer.clear();

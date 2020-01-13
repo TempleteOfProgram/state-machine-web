@@ -11,7 +11,11 @@
                       <mat-icon>menu</mat-icon>
               </button>
               <button mat-button (click)="home()" >State-Machine</button>
-       
+              
+              <div style="margin-left:20%;">
+                          {{CurrentWorkflow}}
+              </div>  
+              
               <span class="spacer"></span>
               
               <mat-menu #menu="matMenu" >
@@ -24,14 +28,14 @@
   </div>
   
   <mat-drawer #drawer class="sidenav">
-          <button mat-menu-item routerLink="">
+          <button mat-menu-item (click)="home()">
             <mat-icon>home</mat-icon>
             <span>Home</span>
           </button> 
 
           <div *ngIf= "workflowList != null">
             <div *ngFor= "let workflow of workflowList">
-              <button mat-menu-item (click)="SetWorkflow(workflow.workflowId)">
+              <button mat-menu-item (click)="SetWorkflow(workflow.workflowId, workflow.name)">
                 <mat-icon>adjust</mat-icon>
                 <span>{{workflow.name}}</span>
               </button>
@@ -39,5 +43,8 @@
           </div>
 
   </mat-drawer>
- 
+  <div style="position: relative;
+              height: 500px;">
+              <ng-template #nodes></ng-template>
+  </div>
 </mat-drawer-container>

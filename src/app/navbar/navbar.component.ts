@@ -1,5 +1,6 @@
+import { NodeService } from './../shared/services/node-service.service';
 import { Router } from '@angular/router';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import { WorkflowModel } from './../shared/models/workflowModel';
 import { WorkflowServicesService } from './../shared/services/workflow-services.service';
 
@@ -12,13 +13,18 @@ import { WorkflowServicesService } from './../shared/services/workflow-services.
 })
 export class NavbarComponent implements OnInit {
 
+  @ViewChild('nodes', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
+  CurrentWorkflow: string = null;
   workflowList: WorkflowModel[];
   behaviorSubject: any;
+
   constructor(private router: Router,
+              private pClinet: NodeService,
               private workfowService: WorkflowServicesService) { }
 
   ngOnInit() {
     this.behaviorSubject = this.workfowService.bs;
+    this.pClinet.setRootViewContainerRef(this.viewContainerRef);
     this.LoadWorkflows();
   }
   LoadWorkflows( ) {
@@ -28,14 +34,27 @@ export class NavbarComponent implements OnInit {
   }
 
   home() {
+    this.CurrentWorkflow = null;
+    this.behaviorSubject.next({id: 0, workflowname: null});
     this.router.navigate(['']);
   }
 
 
-  SetWorkflow(id: number) {
-    //this.router.navigate(['/plumb'], {queryParams: {workflowID: id}});
-    this.behaviorSubject.next({id:id});
+  SetWorkflow(id: number, name: string) {
+    // this.viewContainerRef.clear();
+    // this.pClinet.jsPlumbInstance.deleteEveryEndpoint();
+    // this.pClinet.jsPlumbInstance.deleteEveryConnection();
+
+
+    this.CurrentWorkflow = name;
+    this.behaviorSubject.next({id: id, workflowname: name});
     this.router.navigate(['/plumb']);
+    // if ( id !=undefined || name != undefined || name != '') {
+    //   this.behaviorSubject.next({id: id, workflowname: name});
+    //   this.router.navigate(['/plumb']);
+    // } else {
+    //   this.router.navigate(['']);
+    // }
   }
 
 

@@ -68,18 +68,20 @@ export class NodeComponent implements AfterViewInit {
     };
 
 
-    const { id } = this.node;
-    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
-    this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
-    this.jsPlumbInstance.draggable(id);
+    // debugger;
+    if (this.node.id != undefined) {
+        const { id } = this.node;
+        this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
+        this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
+        this.jsPlumbInstance.draggable(id);
 
-    // creating dynamic connection among nodes
-    this.WorkFlowService.bs.subscribe(data => {
-      this.setConn(data['id']);
-      // if(data['id'] != undefined) {
-      //   this.setConn(data['id']);
-      // }
-    });
+        // creating dynamic connection among nodes
+        this.WorkFlowService.bs.subscribe(data => {
+          if ( data['id'] > 0 ) {
+            this.setConn(data['id']);
+          }
+        });
+    }
 
   }
 

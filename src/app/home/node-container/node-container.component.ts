@@ -1,4 +1,5 @@
 import 'rxjs/add/operator/filter';
+import { Router } from '@angular/router';
 import { WorkflowModel } from './../../shared/models/workflowModel';
 import { NodeService } from './../../shared/services/node-service.service';
 import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/core';
@@ -34,28 +35,30 @@ export class NodeContainerComponent implements OnInit {
   @ViewChild('nodes', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
 
 
-  constructor(private pClinet: NodeService,
+  constructor(private router: Router,
+              private pClinet: NodeService,
               private WorkFlowService: WorkflowServicesService
               ) { }
 
   ngOnInit() {
-   this.pClinet.setRootViewContainerRef(this.viewContainerRef);
+    this.pClinet.setRootViewContainerRef(this.viewContainerRef);
 
-   this.WorkFlowService.bs.subscribe(data => {
-        this.LoadWorkflow(data['id']);
-        this.workflowname = data['workflowname'];
-    });
+    this.WorkFlowService.bs.subscribe(data => {
+          if ( data['id'] > 0) {
+            this.LoadWorkflow(data['id']);
+          }
+      });
 
   }
 
 
   createNewNode( ) {
-    const temp = Math.floor(Math.random() * (100000000 - 1 + 1) + 1).toString();
-    const node = { id: temp, top: 165, left: 100};
+    const id_ = Math.floor(Math.random() * (100000000 - 1 + 1) + 1).toString();
+    const node = { id: id_, top: 165, left: 100};
     this.pClinet.createNode(node);
   }
 
-  saveNodeJson(workflowName: string) {
+  saveNodeJson() {
     const container = this.viewContainerRef.element.nativeElement.parentNode;
     // tslint:disable-next-line: typedef
     const nodes = Array.from(container.querySelectorAll('.node')).map((node: HTMLDivElement) => {
@@ -65,34 +68,62 @@ export class NodeContainerComponent implements OnInit {
         left: node.offsetLeft,
       };
     });
-    const connections = (this.pClinet.jsPlumbInstance.getAllConnections() as any[])
+    let connections = (this.pClinet.jsPlumbInstance.getAllConnections() as any[])
                           .map((conn) => ({ uuids: conn.getUuids() }));
-    const json = JSON.stringify({ nodes, connections });
-    this.WorkFlowService.SaveWorkflow(json, workflowName).subscribe(res => {
-      console.log(res);
+    // const json = JSON.stringify({ nodes, connections});
+    this.WorkFlowService.bs.subscribe(res => {
+              // this.WorkFlowService.SaveWorkflow(json, res['id'], res['workflowname']).subscribe(res => {
+              //       console.log(res);
+              // });
+        if (res['workflowname']==undefined || res['id']==undefined) {
+            // alert("workflow name or id is undefined");
+            this.router.navigate([""]);
+        } else {
+                console.log(res['id'], res['workflowname']);
+                if ( res['id'] > 1) {
+                      this.WorkFlowService.GetWorkflow(res['id']).subscribe((data: WorkflowModel) => {
+                        const workflow_ = JSON.parse(data.workflow);
+                        let current = workflow_['connections'];
+                        for (var i=0; i< connections.length; i++){
+                            if ( connections[i]['uuids'][0] != null) {
+                              current.push(connections[i]);
+                            }
+                        }
+                        connections = current;
+                        const json = JSON.stringify({ nodes, connections });
+                        this.WorkFlowService.SaveWorkflow(json, res['id'], res['workflowname']).subscribe(res => {
+                                  console.log(res);
+                        });
+                      });
+                } else {
+                      const json = JSON.stringify({ nodes, connections});
+                      this.WorkFlowService.SaveWorkflow(json, res['id'], res['workflowname']).subscribe(res => {
+                            console.log(res);
+                      });
+                }
+        }
     });
 
   }
 
 
-  LoadWorkflow(workflowid) {
+  LoadWorkflow(workflowid: number) {
         // debugger;
         // clear and reset before loading new workflow
         this.viewContainerRef.clear();
-        this.pClinet.jsPlumbInstance.reset();
-        // this.pClinet.jsPlumbInstance.deleteEveryConnection();
-        // this.pClinet.jsPlumbInstance.deleteEveryEndpoint();
+        // this.pClinet.jsPlumbInstance.reset();
+        this.pClinet.jsPlumbInstance.deleteEveryConnection();
+        this.pClinet.jsPlumbInstance.deleteEveryEndpoint();
 
 
         // loading workflow
-        if ( workflowid != null ) {
-              this.WorkFlowService.GetWorkflow(workflowid).subscribe((res: WorkflowModel) => {
-                const obj = JSON.parse(res.workflow);
-                for ( let i = 0; i < obj.nodes.length; i++) {
-                  this.pClinet.createNode(obj.nodes[i]);
-                }
-            });
-        }
+        console.log(workflowid);
+        this.WorkFlowService.GetWorkflow(workflowid).subscribe((res: WorkflowModel) => {
+          const obj = JSON.parse(res.workflow);
+          for ( let i = 0; i < obj.nodes.length; i++) {
+            this.pClinet.createNode(obj.nodes[i]);
+          }
+        });
   }
 
 }

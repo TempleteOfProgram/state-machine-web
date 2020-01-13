@@ -16,11 +16,13 @@ import { Router } from '@angular/router';
 
         <mat-dialog-actions>
             <button class="mat-raised-button mat-primary" mat-dialog-close>Submit</button>
-            <button class="mat-raised-button" mat-dialog-close>Cancel</button>
+            <div (click)="onCancel()">
+                <button class="mat-raised-button" mat-dialog-close >Cancel</button>
+            </div>
         </mat-dialog-actions>
       `
   })
-export class WorkflowNameComponent implements OnInit{
+export class WorkflowNameComponent implements OnInit {
 
 
   ngOnInit() {
@@ -36,12 +38,16 @@ export class WorkflowNameComponent implements OnInit{
 
   AddWorkflowName( name: string) {
         if (name != null) {
-          // console.log(name);
-          // this.router.navigate(['/plumb'], {queryParams: {workflowName: name}});
-          this.behaviorSubject.next({workflowname: name});
+          // this.behaviorSubject.next({workflowname: name});
+          this.behaviorSubject.next({id: 0, workflowname: name});
         } else {
           this.router.navigate(['']);
         }
+  }
+
+  onCancel() {
+    this.behaviorSubject.next({id: undefined, workflowname: undefined});
+    this.router.navigate(['']);
   }
 
 
