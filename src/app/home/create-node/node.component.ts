@@ -74,6 +74,13 @@ export class NodeComponent implements AfterViewInit {
         this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
         this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
         this.jsPlumbInstance.draggable(id);
+        
+        // try {
+        //   this.jsPlumbInstance.draggable(id);
+        // } catch (error) {
+        //   // console.log(error);
+        // }
+        
 
         // creating dynamic connection among nodes
         this.WorkFlowService.bs.subscribe(data => {

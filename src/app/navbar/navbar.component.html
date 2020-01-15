@@ -1,15 +1,17 @@
 <mat-drawer-container class="container" autosize >
   <!-- Will be triggered by (click) = "drawer.toggle()" -->
-   
+  <!-- <node-container #nodeContainer [nodes]="nodes" [connections]="connections"></node-container> -->
   <div class="sidenav-content">
       <mat-toolbar color="primary">
           <mat-toolbar-row>
               <!-- 
                 drawer.toggle(): will call #drawer and will bring the sidenav into view
               -->
-              <button mat-icon-button (click) = "drawer.toggle()">
-                      <mat-icon>menu</mat-icon>
-              </button>
+              <div (click)="LoadWorkflows()">
+                  <button mat-icon-button (click) = "drawer.toggle()">
+                          <mat-icon>menu</mat-icon>
+                  </button>
+              </div>
               <button mat-button (click)="home()" >State-Machine</button>
               
               <div style="margin-left:20%;">
@@ -35,10 +37,16 @@
 
           <div *ngIf= "workflowList != null">
             <div *ngFor= "let workflow of workflowList">
+              
               <button mat-menu-item (click)="SetWorkflow(workflow.workflowId, workflow.name)">
                 <mat-icon>adjust</mat-icon>
                 <span>{{workflow.name}}</span>
               </button>
+
+              <!-- <button  (click)= "DeleteWOrkflow(workflow.workflowId)">
+                <mat-icon>delete</mat-icon>
+              </button> -->
+
             </div>
           </div>
 

@@ -38,7 +38,6 @@ export class IntroComponent implements OnInit {
               private dialog: MatDialog,
               private workfowService: WorkflowServicesService) { }
 
-
   AddWorkflow() {
       const dialogConfig = new MatDialogConfig();
 

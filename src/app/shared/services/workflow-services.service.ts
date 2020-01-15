@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 export class WorkflowServicesService {
 
   bs = new BehaviorSubject<any>(2);
-
   readonly rootUrl = environment.serverUrl;
   constructor(private http: HttpClient) { }
 
@@ -34,7 +33,7 @@ SaveWorkflow( workflow_: string, workflwoid= 0, workflowName: string) {
 
   GetWorkflow(id: number): Observable<WorkflowModel> {
     // console.log(id);
-    if( id != undefined) {
+    if ( id != undefined) {
       return this.http.get(this.rootUrl + 'getWorkflow?id=' + id);
     }
   }

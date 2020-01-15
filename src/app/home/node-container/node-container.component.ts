@@ -2,7 +2,7 @@ import 'rxjs/add/operator/filter';
 import { Router } from '@angular/router';
 import { WorkflowModel } from './../../shared/models/workflowModel';
 import { NodeService } from './../../shared/services/node-service.service';
-import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
 import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
 
 
@@ -25,7 +25,7 @@ import { WorkflowServicesService } from './../../shared/services/workflow-servic
   }`]
 })
 
-export class NodeContainerComponent implements OnInit {
+export class NodeContainerComponent implements OnInit, AfterViewInit {
 
   workflowId: number;
   workflowname: string = null;
@@ -41,13 +41,17 @@ export class NodeContainerComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    debugger;
     this.pClinet.setRootViewContainerRef(this.viewContainerRef);
 
     this.WorkFlowService.bs.subscribe(data => {
-          if ( data['id'] > 0) {
-            this.LoadWorkflow(data['id']);
-          }
-      });
+      if ( data['id'] > 0) {
+        this.LoadWorkflow(data['id']);
+      }
+  });
+  }
+
+  ngAfterViewInit(){
 
   }
 
@@ -60,7 +64,6 @@ export class NodeContainerComponent implements OnInit {
 
   saveNodeJson() {
     const container = this.viewContainerRef.element.nativeElement.parentNode;
-    // tslint:disable-next-line: typedef
     const nodes = Array.from(container.querySelectorAll('.node')).map((node: HTMLDivElement) => {
       return {
         id: node.id.toString(),
@@ -70,13 +73,8 @@ export class NodeContainerComponent implements OnInit {
     });
     let connections = (this.pClinet.jsPlumbInstance.getAllConnections() as any[])
                           .map((conn) => ({ uuids: conn.getUuids() }));
-    // const json = JSON.stringify({ nodes, connections});
     this.WorkFlowService.bs.subscribe(res => {
-              // this.WorkFlowService.SaveWorkflow(json, res['id'], res['workflowname']).subscribe(res => {
-              //       console.log(res);
-              // });
         if (res['workflowname']==undefined || res['id']==undefined) {
-            // alert("workflow name or id is undefined");
             this.router.navigate([""]);
         } else {
                 console.log(res['id'], res['workflowname']);
@@ -103,15 +101,15 @@ export class NodeContainerComponent implements OnInit {
                 }
         }
     });
-
   }
 
 
   LoadWorkflow(workflowid: number) {
-        // debugger;
+         debugger;
         // clear and reset before loading new workflow
         this.viewContainerRef.clear();
         // this.pClinet.jsPlumbInstance.reset();
+        //debugger;
         this.pClinet.jsPlumbInstance.deleteEveryConnection();
         this.pClinet.jsPlumbInstance.deleteEveryEndpoint();
 
