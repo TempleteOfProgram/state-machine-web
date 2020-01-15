@@ -60,13 +60,13 @@ export class NavbarComponent implements OnInit {
       this.workfowService.DeletetWorkflow(id).subscribe(res => {
           console.log(res);
       });
-      this.delay(10).then(res => {
+      this.workfowService.delay(10).then(res => {
         this.LoadWorkflows();
       });
     }
 
-  async delay(ms: number) {
-      await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log(`sleeped ${ms}`));
-  }
+  // async delay(ms: number) {
+  //     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log(`sleeped ${ms}`));
+  // }
 
 }

@@ -46,4 +46,9 @@ SaveWorkflow( workflow_: string, workflwoid= 0, workflowName: string) {
     return this.http.delete(this.rootUrl + 'deleteWorkflow?id=' + id);
   }
 
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log(`sleeped ${ms}`));
+  }
+
 }

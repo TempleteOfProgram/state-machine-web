@@ -2,6 +2,7 @@ import { NodeModel } from './../../shared/models/NodeModel';
 import { Component, AfterViewInit, Input } from '@angular/core';
 import { WorkflowModel } from 'src/app/shared/models/workflowModel';
 import { WorkflowServicesService } from './../../shared/services/workflow-services.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class NodeComponent implements AfterViewInit {
 
   @Input() node: NodeModel;
   @Input() jsPlumbInstance;
-  constructor(private WorkFlowService: WorkflowServicesService) { }
+  constructor(private router: Router,
+              private WorkFlowService: WorkflowServicesService) { }
 
 
   ngAfterViewInit() {
@@ -73,14 +75,13 @@ export class NodeComponent implements AfterViewInit {
         const { id } = this.node;
         this.jsPlumbInstance.addEndpoint(id, { anchor: 'Bottom', uuid: id }, EndpointFrom);
         this.jsPlumbInstance.addEndpoint(id, { anchor: 'Top', uuid: id }, EndpointTO);
-        this.jsPlumbInstance.draggable(id);
-        
-        // try {
-        //   this.jsPlumbInstance.draggable(id);
-        // } catch (error) {
-        //   // console.log(error);
-        // }
-        
+        // this.jsPlumbInstance.draggable(id);
+
+        try {
+          this.jsPlumbInstance.draggable(id);
+        } catch (error) {
+          this.router.navigate(['/plumb'])
+        }
 
         // creating dynamic connection among nodes
         this.WorkFlowService.bs.subscribe(data => {
