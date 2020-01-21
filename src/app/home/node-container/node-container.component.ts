@@ -41,7 +41,7 @@ export class NodeContainerComponent implements OnInit, AfterViewInit {
               ) { }
 
   ngOnInit() {
-    debugger;
+    // debugger;
     this.pClinet.setRootViewContainerRef(this.viewContainerRef);
 
     this.WorkFlowService.bs.subscribe(data => {
@@ -108,7 +108,7 @@ export class NodeContainerComponent implements OnInit, AfterViewInit {
 
 
   LoadWorkflow(workflowid: number) {
-         debugger;
+        //  debugger;
         // clear and reset before loading new workflow
          this.viewContainerRef.clear();
         // this.pClinet.jsPlumbInstance.reset();
